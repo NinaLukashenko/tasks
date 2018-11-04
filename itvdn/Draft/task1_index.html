@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MyReactPage</title>
+	<script src= "https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script src= "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src= "https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="content"></div>
+	<script type="text/babel">
+	class Hello extends React.Component {
+		render() {return(<h1>Hello from {this.props.name} and I love {this.props.action}! </h1>);}
+	}
+	ReactDOM.render(
+	<div>
+		<Hello name="HTML" action="web" />
+		<Hello name="CSS" action="styling" />
+		<Hello name="JS" action="denamic" />
+		<Hello name="React" action="all of mentioned above" />
+	</div>,
+	document.getElementById('content'));
+	</script>
+</body>
+</html>

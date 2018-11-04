@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MyReactPage</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src= "https://unpkg.com/react@16/umd/react.production.min.js"></script>
+	<script src= "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+	<script src= "https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="content"></div>
+
+	<script type="text/babel">
+
+	const moviesData = [
+  {
+    vote_count: 4592,
+    id: 299536,
+    video: false,
+    vote_average: 8.5,
+    title: "Avengers: Infinity War",
+    popularity: 160.36938,
+    poster_path: "/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+    original_language: "en",
+    original_title: "Avengers: Infinity War",
+    backdrop_path: "/bOGkgRGdhrBYJSLpXaxhXVstddV.jpg",
+    adult: false,
+    overview:
+      "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
+    release_date: "2018-04-25"
+  },
+  {
+    vote_count: 1410,
+    id: 401981,
+    video: false,
+    vote_average: 6.4,
+    title: "Red Sparrow",
+    popularity: 58.167437,
+    poster_path: "/vLCogyfQGxVLDC1gqUdNAIkc29L.jpg",
+    original_language: "en",
+    original_title: "Red Sparrow",
+    backdrop_path: "/sGzuQYSTwJvLBc2PnuSVLHhuFeh.jpg",
+    adult: false,
+    overview:
+      "Prima ballerina, Dominika Egorova faces a bleak and uncertain future after she suffers an injury that ends her career. She soon turns to Sparrow School, a secret intelligence service that trains exceptional young people to use their minds and bodies as weapons. Dominika emerges as the most dangerous Sparrow after completing the sadistic training process. As she comes to terms with her new abilities, she meets a CIA agent who tries to convince her that he is the only person she can trust.",
+    release_date: "2018-03-01"
+  },
+  {
+    vote_count: 29,
+    id: 493922,
+    video: false,
+    vote_average: 6.7,
+    title: "Hereditary",
+    popularity: 36.915917,
+    poster_path: "/wihYuMsQADWrSaVThaJunM2wR4V.jpg",
+    original_language: "en",
+    original_title: "Hereditary",
+    backdrop_path: "/yVWiOMpzf7gullGvug83r7gMdha.jpg",
+    adult: false,
+    overview:
+      "After their reclusive grandmother passes away, the Graham family tries to escape the dark fate they've inherited.",
+    release_date: "2018-06-04"
+  },
+  {
+    vote_count: 4,
+    id: 260513,
+    video: false,
+    vote_average: 7.5,
+    title: "Incredibles 2",
+    popularity: 31.548805,
+    poster_path: "/hL9Uz2vq93vi20oxZEBBaSs4w8U.jpg",
+    original_language: "en",
+    original_title: "Incredibles 2",
+    backdrop_path: "/kqoBtMmiycbbhGLXGkKhL8SdaWB.jpg",
+    adult: false,
+    overview:
+      "Elastigirl springs into action to save the day, while Mr. Incredible faces his greatest challenge yet – taking care of the problems of his three children.",
+    release_date: "2018-06-14"
+  },
+  {
+    vote_count: 5,
+    id: 440626,
+    video: false,
+    vote_average: 5.8,
+    title: "Sobibor",
+    popularity: 8.662257,
+    poster_path: "/rGOB5Xm0l0zAWAzVzeTnOPDMVQA.jpg",
+    original_language: "ru",
+    original_title: "Собибор",
+    backdrop_path: "/5KhMpFJdnOAsDmIpT0TINUNDt8L.jpg",
+    adult: false,
+    overview:
+      "Based on the true story, international historical project “Sobibor” is dedicated to the heroism of the Soviet o cer Alexander Pechersky. During the great Patriotic war, being in a Nazi concentration camp Sobibor he managed to do the impossible — for only three weeks to organize a revolt and mass escape of the prisoners. Part of the escapees were caught and shot, and the rest led by Pechersky managed to escape and joined the partisans.",
+    release_date: "2018-05-03"
+  }
+];
+
+	class Movie extends React.Component {
+		render() {return (
+					<div className="col-4">
+						<div> 
+							<img src={'https://image.tmdb.org/t/p/w500'+this.props.image} className="img-fluid"/>
+							<div> {this.props.title} </div>
+							<div> {this.props.rate} </div>
+						</div>
+					</div>
+			);
+		}
+	}
+
+
+	class MovieList extends React.Component {
+		render() {return (
+			<div className="row">
+				<div className="col-9">
+					<div className="row">
+						{
+							moviesData.map(function(element){
+								return <Movie
+									key={element.id}
+									title={element.title}
+									rate={element.popularity}
+									image={element.backdrop_path}
+								/>;
+							})	
+						}
+					</div>
+				</div>
+			</div>	
+			);
+		}
+	}
+
+	ReactDOM.render(
+	<MovieList />,
+	document.getElementById('content'));
+
+	</script>
+</body>
+</html>
