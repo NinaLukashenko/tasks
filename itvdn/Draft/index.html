@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>MyReactPage</title>
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<script src= "https://unpkg.com/react@16/umd/react.production.min.js"></script>
-	<script src= "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-	<script src= "https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <meta charset="UTF-8">
+    <title>MyReactPage</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src= "https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src= "https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src= "https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
 </head>
 <body>
-	<div id="content"></div>
+    <div id="root" style="margin-top:1.5rem;"></div>
 
-	<script type="text/babel">
+    <script type="text/babel">
 
-	const moviesData = [
+    const moviesData = [
   {
     vote_count: 4592,
     id: 299536,
@@ -96,46 +96,87 @@
   }
 ];
 
-	class Movie extends React.Component {
-		render() {return (
-					<div className="col-4">
-						<div> 
-							<img src={'https://image.tmdb.org/t/p/w500'+this.props.image} className="img-fluid"/>
-							<div> {this.props.title} </div>
-							<div> {this.props.rate} </div>
-						</div>
-					</div>
-			);
-		}
-	}
+function WatchButton(props) {
+  const className = props.willWatch
+    ? "btn btn-success float-right"
+    : "btn btn-secondary float-right";
+  return (
+    <button type="button" onClick={props.onClick} className={className}>
+      Will watch
+    </button>
+  );
+}
 
+class Movie extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { willWatch: false };
+  }
 
-	class MovieList extends React.Component {
-		render() {return (
-			<div className="row">
-				<div className="col-9">
-					<div className="row">
-						{
-							moviesData.map(function(element){
-								return <Movie
-									key={element.id}
-									title={element.title}
-									rate={element.popularity}
-									image={element.backdrop_path}
-								/>;
-							})	
-						}
-					</div>
-				</div>
-			</div>	
-			);
-		}
-	}
+  handleClick() {
+    if (this.state.willWatch) {
+      this.setState({ willWatch: false });
+    } else {
+      this.setState({ willWatch: true });
+    }
+  }
 
-	ReactDOM.render(
-	<MovieList />,
-	document.getElementById('content'));
+  render() {
+    return (
+      <div className="col-4 mb-4">
+        <div className="card">
+          <img
+            className="card-img-top img-fluid"
+            alt={this.props.title}
+            src={"https://image.tmdb.org/t/p/w500" + this.props.image}
+          />
+          <div className="card-body">
+            <h6 className="card-title"> {this.props.title} </h6>
+            <div className="clearfix">
+              <p className="card-text float-left">Rating: {this.props.rate}</p>
+              <div>
+                <WatchButton
+                  onClick={this.handleClick.bind(this)}
+                  willWatch={this.state.willWatch}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
-	</script>
+class MovieList extends React.Component {
+  render() {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-9">
+            <div className="row">
+              {moviesData.map(function(element) {
+                return (
+                  <Movie
+                    key={element.id}
+                    title={element.title}
+                    rate={element.vote_average}
+                    image={element.backdrop_path}
+                  />
+                );
+              })}
+            </div>
+          </div>
+          <div className="col-3">
+            <div>Will watch: X movies</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+ReactDOM.render(<MovieList />, document.getElementById("root"));
+
+    </script>
 </body>
 </html>
