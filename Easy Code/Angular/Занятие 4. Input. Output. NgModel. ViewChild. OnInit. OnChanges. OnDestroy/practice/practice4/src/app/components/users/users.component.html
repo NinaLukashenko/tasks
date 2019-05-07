@@ -1,0 +1,16 @@
+<h1>
+  Users component!
+</h1>
+<button (click)="changeInfoDataHandler()">Change info data</button>
+<button (click)="userItemIsHiden = !userItemIsHiden">Hide component</button>
+
+<ng-container *ngIf="!userItemIsHiden">
+  <ng-container *ngFor="let user of users">
+    <app-user-item
+      (outputInfo)="onOutputEvent($event)"
+      [user]="user"
+      [parentValue]="info"
+      [secondParentValue]="news"
+    ></app-user-item>
+  </ng-container>
+</ng-container>
